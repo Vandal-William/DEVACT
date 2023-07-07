@@ -5,7 +5,8 @@ const user = {
     getIndexPage: (req, res) => {
         const user = "william";
         const params = "william";
-        res.render('index', {user, params})
+        const data = null;
+        res.render('devact', {user, params, data})
     },
 
     updateUser: async (req, res) => {

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= user %></title>
+    <link rel="stylesheet" href="CSS/davact.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav" id="header">
+            <% if (!data) { %>
+                <h1 class="header-title">DEVACT</h1>
+            <% } %>
+            <ul class="nav-ul">
+                <li class="nav-li"><a href="#" class="nav-link">Accueil</a></li>
+                <li class="nav-li"><a href="#" class="nav-link">Compétences</a></li>
+                <li class="nav-li"><a href="#" class="nav-link">Projets</a></li>
+                <li class="nav-li"><a href="#" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="main">
+        <section class="biography">
+
+            <div class="biography-info">
+                <h2 class="biography-title">Je suis  <span class="biography-job-title" aria-label = "Développer web"></span></h2>
+                <p class="biography-description"> 
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
+                    Itaque et magnam hic corporis velit perspiciatis, 
+                    quas quo sapiente rerum inventore ut.
+                </p>
+                <button class="contact-link">Me Contacter</button>
+            </div>
+
+            <div class="biography-image-container">
+                <img class="biography-image" src="img/photo.jpg" alt="">
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Compétences</h2>
+            <hr class="hr">
+            <div class="flex-container">
+                <div class="one-skill">
+                    <h3 class="skill-nane">Front-ent</h3>
+                    <hr class="skill-hr">
+                    <p class="skill-description">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+                        Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
+                        consequuntur!
+                    </p>
+                </div>
+    
+                <div class="one-skill">
+                    <h3 class="skill-nane">Back-end</h3>
+                    <hr class="skill-hr">
+                    <p class="skill-description">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+                        Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
+                        consequuntur!
+                    </p>
+                </div>
+    
+                <div class="one-skill">
+                    <h3 class="skill-nane">Git Master</h3>
+                    <hr class="skill-hr">
+                    <p class="skill-description">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+                        Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
+                        consequuntur!
+                    </p>
+                </div>
+    
+                <div class="one-skill">
+                    <h3 class="skill-nane">Design Web</h3>
+                    <hr class="skill-hr">
+                    <p class="skill-description">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+                        Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
+                        consequuntur!
+                    </p>
+                </div>
+    
+                <div class="one-skill">
+                    <h3 class="skill-nane">SEO</h3>
+                    <hr class="skill-hr">
+                    <p class="skill-description">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+                        Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
+                        consequuntur!
+                    </p>
+                </div>
+    
+                <div class="one-skill">
+                    <h3 class="skill-nane">Production</h3>
+                    <hr class="skill-hr">
+                    <p class="skill-description">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+                        Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
+                        consequuntur!
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Projets</h2>
+            <hr class="hr">
+
+            <div class="flex-container">
+
+                <div class="one-project">
+                    <img src="img/projet1.jpg" alt="projet1">
+                    <div class="project-nane">
+                        <h3>RunnerJs</h3>
+                        <button class="plus-button">Voire plus</button>
+                    </div>
+                    <div class="container">
+                        <span class="close">X</span>
+                        <h4>Description :</h4>
+                        <p class="project-description">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+                            Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
+                            consequuntur!
+                        </p>
+                    </div>
+                </div>
+    
+                <div class="one-project">
+                    <img src="img/projet2.jpg" alt="projet2">
+                    <div class="project-nane">
+                        <h3>Mangas-Quest</h3>
+                        <button class="plus-button">Voire plus</button>
+                    </div>
+                    <div class="container">
+                        <span class="close">X</span>
+                        <h4>Description :</h4>
+                        <p class="project-description">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+                            Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
+                            consequuntur!
+                        </p>
+                    </div>
+                </div>
+    
+                <div class="one-project">
+                    <img src="img/projet3.jpg" alt="projet3">
+                    <div class="project-nane">
+                        <h3>Realty</h3>
+                        <button class="plus-button">Voire plus</button>
+                    </div>
+                    <div class="container">
+                        <span class="close">X</span>
+                        <h4>Description :</h4>
+                        <p class="project-description">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+                            Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
+                            consequuntur!
+                        </p>
+                    </div>
+                </div>
+    
+                <div class="one-project">
+                    <img src="img/projet4.jpg" alt="projet4">
+                    <div class="project-nane">
+                        <h3>Mangalaxy</h3>
+                        <button class="plus-button">Voire plus</button>
+                    </div>
+                    <div class="container">
+                        <span class="close">X</span>
+                        <h4>Description :</h4>
+                        <p class="project-description">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+                            Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
+                            consequuntur!
+                        </p>
+                    </div>
+                </div>
+    
+                <div class="one-project">
+                    <img src="img/projet5.jpg" alt="projet5">
+                    <div class="project-nane">
+                        <h3>Connectify</h3>
+                        <button class="plus-button">Voire plus</button>
+                    </div>
+                    <div class="container">
+                        <span class="close">X</span>
+                        <h4>Description :</h4>
+                        <p class="project-description">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+                            Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
+                            consequuntur!
+                        </p>
+                    </div>
+                </div>
+    
+                <div class="one-project">
+                    <img src="img/projet6.jpg" alt="projet6">
+                    <div class="project-nane">
+                        <h3>TicketMaster</h3>
+                        <button class="plus-button">Voire plus</button>
+                    </div>
+                    <div class="container">
+                        <span class="close">X</span>
+                        <h4>Description :</h4>
+                        <p class="project-description">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
+                            Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
+                            consequuntur!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+
+    <script src="js/devact.js"></script>
+</body>
+</html>
