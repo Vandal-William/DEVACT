@@ -22,10 +22,11 @@ body{
 }
 /* =========================================================== HEADER ========================================== */
 .header{
-    height: 5vh;
+    min-height: 5vh;
     position: sticky;
     top: 0;
     z-index: 1;
+
     
 }
 
@@ -35,13 +36,14 @@ body{
 }
 
 .nav{
-    height: 5vh;
-    padding: 15px 60px 15px 60px;
+    min-height: 5vh;
+    padding: 15px 30px 15px 30px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     background: #00000086;
     transition: 1s;
+    gap: 3%;
     
 }
 
@@ -56,6 +58,7 @@ body{
 
 .header-title{
     color: var(--main-color);
+    font-size: clamp(10px, 6vw, 40px);
     
 }
 
@@ -443,7 +446,14 @@ body{
 
 .update-site-title{
     display: flex;
+    flex-wrap: wrap;
+    flex-grow: 0;
+    flex-shrink: 1;
     gap: 3%;
+}
+
+.update-site-title > * {
+    margin: 1%;
 }
 
 .update_biography_form{
@@ -622,5 +632,9 @@ body{
 
     .project-nane {
         opacity: 1;
+    }
+
+    .contact-info {
+        margin-bottom: 20%;
     }
 }
