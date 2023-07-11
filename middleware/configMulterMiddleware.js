@@ -10,7 +10,7 @@ function generateRandomString(length) {
 // Configuration de Multer
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const destinationPath = `./public/images`;
+    const destinationPath = `./public/userImg`;
     cb(null, destinationPath);
   },
   filename: (req, file, cb) => {

@@ -41,3 +41,13 @@ CREATE TABLE "project" (
     "project_created_at" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "project_updated_at" TIMESTAMPTZ
 );
+
+INSERT INTO "user"(
+    user_username,
+    user_password,
+    user_statut
+)VALUES(
+    'william',
+    '$2a$12$V6bo26SVFGSvFAxBlzVViOvpKCGGy3pMFGdYwrb6TNgYmNylL/meu',
+    'user'
+);

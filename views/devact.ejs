@@ -9,32 +9,98 @@
 <body>
     <header class="header">
         <nav class="nav" id="header">
-            <% if (!data) { %>
+            <% if (!data.user_firstname && !data.user_lastname) { %>
                 <h1 class="header-title">DEVACT</h1>
+                <% } else { %>
+                   <h1 class="header-title"><%= data.user_firstname %> <%= data.user_lastname %></h1>
             <% } %>
+            <% if (user === params) { %>
+                <form action="/user/update" method="post" class="update-site-title hidden">
+                    <input type="hidden" value="<%= data.user_id %>" name="user_id">
+                    <% if (!data.user_firstname && !data.user_lastname) { %>
+                        <input type="text" placeholder="Prénom" name="user_firstname" class="update-input">
+                        <input type="text" placeholder="Nom" name="user_lastname" class="update-input">
+                        <% } else { %>
+                            <input type="text" value="<%= data.user_firstname %>" name="user_firstname" class="update-input">
+                            <input type="text" value="<%= data.user_lastname %>" name="user_lastname" class="update-input">
+                    <% } %>
+                    <button class="update_button">Modifier</button>
+                </form>
+                <button class="update_button" id="site_title_update">Modifier</button>
+           <% } %>
             <ul class="nav-ul">
                 <li class="nav-li"><a href="#" class="nav-link">Accueil</a></li>
                 <li class="nav-li"><a href="#skills" class="nav-link">Compétences</a></li>
                 <li class="nav-li"><a href="#projects" class="nav-link">Projets</a></li>
-                <li class="nav-li"><a href="#" class="nav-link">Contact</a></li>
+                <li class="nav-li"><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
+            <div class="content-burger">
+                <img src="/img/burger.svg" class="burger" alt="Menu burger">
+            </div>
         </nav>
     </header>
     <main class="main">
         <section class="biography">
 
             <div class="biography-info">
-                <h2 class="biography-title">Je suis  <span class="biography-job-title" aria-label = "Développer web"></span></h2>
-                <p class="biography-description"> 
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
-                    Itaque et magnam hic corporis velit perspiciatis, 
-                    quas quo sapiente rerum inventore ut.
-                </p>
-                <button class="contact-link">Me Contacter</button>
+
+                <% if (!data.user_job_title){ %>
+                    <h2 class="biography-title">Je suis  <span class="biography-job-title" aria-label = "Développer web"></span></h2>
+                    <% } else { %>
+                        <h2 class="biography-title">Je suis  <span class="biography-job-title" aria-label = "<%= data.user_job_title %>"></span></h2>
+                <% } %>
+
+                <% if (!data.user_biography){ %>
+                    <p class="biography-description"> 
+                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
+                        Itaque et magnam hic corporis velit perspiciatis, 
+                        quas quo sapiente rerum inventore ut.
+                    </p>
+                    <% } else { %>
+                        <p class="biography-description"> <%= data.user_biography %></p>
+                <% } %>
+                <div class="flex_div">
+                    <button class="contact-link">Me Contacter</button>
+                    <% if (user === params){ %>
+                        <button class="update_button" id="update_biography_button">Modifier</button>
+                   <% } %>
+                </div>
             </div>
+            <% if (user === params){ %> 
+                <form action="/user/update" method="post" class="update_biography_form hidden" >
+                    <input type="hidden" value="<%= data.user_id %>" name="user_id">
+                    <div class="job_title">
+                        <% if (!data.user_job_title){ %>
+                        <h2 class="biography-title">Je suis <input class="contact-form-input" placeholder = "Développer web" name="user_job_title"></h2>
+                        
+                        <% } else { %>
+                            <h2 class="biography-title">Je suis  <input class="contact-form-input" id="job-value" value = "<%= data.user_job_title %>" name="user_job_title"></h2>
+                           
+                        <% } %>
+                    </div>
+                    <% if (!data.user_biography){ %>
+                        <textarea name="user_biography" class="contact-form-textarea" placeholder="Biographie"></textarea>
+                    <% } else { %>
+                        <textarea name="user_biography" class="contact-form-textarea"><%= data.user_biography %></textarea>
+                    <% } %>
+                    <button class="update_button" id="update">Modifier</button>
+                </form>
+            <% } %>
 
             <div class="biography-image-container">
-                <img class="biography-image" src="img/photo.jpg" alt="">
+                <% if (!data.user_picture) { %>
+                    <img class="biography-image" src="img/photo.jpg" alt="photo">
+                    <% } else { %>
+                        <img class="biography-image" src="<%= data.user_picture %>" alt="photo">
+                <% } %>
+                <% if (user === params) { %>
+                    <form action="/user/update/picture" method="post" class="update_picture_form hidden" enctype="multipart/form-data">
+                        <input type="hidden" value="<%= data.user_id %>" name="user_id">
+                        <input type="file" name="user_picture" class="update-input">
+                        <button class="update_button" id="update">Modifier</button>
+                    </form>
+                    <button class="update_button update_picture_button" id="update">Modifier</button>
+                <% } %>
             </div>
         </section>
 
@@ -44,65 +110,47 @@
             <h2 class="section-title">Compétences</h2>
             <hr class="hr">
             <div class="flex-container">
-                <div class="one-skill">
-                    <h3 class="skill-nane">Front-ent</h3>
-                    <hr class="skill-hr">
-                    <p class="skill-description">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-                        Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
-                        consequuntur!
-                    </p>
-                </div>
+                <% if (data.skills.length < 7) { %>
+                    <% data.skills.forEach(skill => { %>
+                        <div class="one-skill <%= skill.skill_id %>">
+                            <% if (user === params){ %>
+                                <button value="<%= skill.skill_id %>" class="update_button update_skills">Modifier</button>
+                            <% } %>
+
+                            <h3 class="skill-nane"><%= skill.skill_name %> </h3>
+                            <hr class="skill-hr">
+                            <p class="skill-description"> <%= skill.skill_description %> </p>
+                        </div> 
+                        <div class="one-skill hidden <%= skill.skill_id %>">
+                            <form action="/user/update/skill" method="post" class="update_one_skill_form ">
+                                <input type="hidden" value="<%= skill.skill_id %>" name="skill_id">
+                                <input type="hidden" value="<%= user %>" name="user_username">
+                                <input class="contact-form-input" placeholder="Compétence" value="<%= skill.skill_name %>" name="skill_name">
+                                <hr class="skill-hr">
+                                <textarea class="contact-form-textarea width" placeholder="Déscription" name="skill_description"> <%= skill.skill_description %> </textarea>
+                                <button class="update_button" id="update">Modifier</button>
+                            </form> 
+                        </div>
+                   <% }); %>
+                <% } %> 
+
+                <% if (user === params){ %>
+                    <% if (data.skills.length < 6){ %>
+                        <div class="one-skill hover">
+                            <button class="add_skill"><p>+</p></button>
+                            <form action="/user/add/skill" method="post" class="add_one_skill_form hidden">
+                                <input type="hidden" value="<%= user %>" name="user_username">
+                                <input class="contact-form-input" placeholder="Compétence" name="skill_name">
+                                <hr class="skill-hr">
+                                <textarea class="contact-form-textarea width" placeholder="Déscription" name="skill_description"> </textarea>
+                                <button class="update_button" id="update">Ajouter</button>
+                            </form>
+                        </div>
+
+                    <% } %>
+                    
+                <% } %>
     
-                <div class="one-skill">
-                    <h3 class="skill-nane">Back-end</h3>
-                    <hr class="skill-hr">
-                    <p class="skill-description">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-                        Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
-                        consequuntur!
-                    </p>
-                </div>
-    
-                <div class="one-skill">
-                    <h3 class="skill-nane">Git Master</h3>
-                    <hr class="skill-hr">
-                    <p class="skill-description">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-                        Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
-                        consequuntur!
-                    </p>
-                </div>
-    
-                <div class="one-skill">
-                    <h3 class="skill-nane">Design Web</h3>
-                    <hr class="skill-hr">
-                    <p class="skill-description">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-                        Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
-                        consequuntur!
-                    </p>
-                </div>
-    
-                <div class="one-skill">
-                    <h3 class="skill-nane">SEO</h3>
-                    <hr class="skill-hr">
-                    <p class="skill-description">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-                        Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
-                        consequuntur!
-                    </p>
-                </div>
-    
-                <div class="one-skill">
-                    <h3 class="skill-nane">Production</h3>
-                    <hr class="skill-hr">
-                    <p class="skill-description">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-                        Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
-                        consequuntur!
-                    </p>
-                </div>
             </div>
 
         </section>
@@ -114,110 +162,115 @@
             <hr class="hr">
 
             <div class="flex-container">
+                <% if (data.projects.length < 7) { %>
+                    <% data.projects.forEach(project => { %>
+                        <div class="one-project <%= project.project_id %>">
 
-                <div class="one-project">
-                    <img src="img/projet1.jpg" alt="projet1">
-                    <div class="project-nane">
-                        <h3>RunnerJs</h3>
-                        <button class="plus-button">Voire plus</button>
-                    </div>
-                    <div class="container">
-                        <span class="close">X</span>
-                        <h4>Description :</h4>
-                        <p class="project-description">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-                            Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
-                            consequuntur!
-                        </p>
-                    </div>
-                </div>
+                            <img src="<%= project.project_picture %>" alt="projet">
+
+                            <div class="project-nane <%= project.project_id %>">
+                                <h3><%= project.project_name %></h3>
+                                <button value="<%= project.project_id %>" class="plus-button">Voire plus</button>
+
+                                <button value="<%= project.project_id %>" class="update_project_button">Modifier</button>
+                            </div>
+
+                            <div class="container <%= project.project_id %> hidden">
+                                <button value="<%= project.project_id %>" class="close">X</button>
+                                <h4>Description :</h4>
+                                <p class="project-description"><%= project.project_description %></p>
+                            </div>
+                        </div>
+
+                        <div class="one-project <%= project.project_id %> hidden">
+
+                            <form action="/user/update/project" method="post" class="update_one_project_form" enctype="multipart/form-data">
+                                <input type="hidden" value="<%= project.project_id %>" name="project_id">
+                                <input type="text" class="contact-form-input" value="<%= project.project_name %>" name="project_name">
+                                <input type="file" class="contact-form-input" placeholder="image" name="project_picture">
+                                <textarea class="contact-form-textarea" placeholder="Description" name="project_description"><%= project.project_description %> </textarea>
+                                <button class="update_button" id="update">Modifier</button>
+                            </form>
+
+                        </div>
+                    <% }) %>
+                <% } %>
+
+                <% if (user === params){ %>
+                    <% if (data.projects.length < 6){ %>
+                        <div class="one-project" id="project">
+                            <button class="add_project"><p>+</p></button>
+                            <form action="/user/add/project" method="post" class="add_one_project_form hidden" enctype="multipart/form-data">
+                                <input type="hidden" value="<%= user %>" name="project_user_username">
+                                <input type="text" class="contact-form-input" placeholder="Nom du projet" name="project_name">
+                                <input type="file" class="contact-form-input" placeholder="image" name="project_picture">
+                                <textarea class="contact-form-textarea" placeholder="Description" name="project_description"> </textarea>
+                                <button class="update_button" id="update">Ajouter</button>
+                            </form>
+                        </div>
+
+                    <% } %>
+                    
+                <% } %>
     
-                <div class="one-project">
-                    <img src="img/projet2.jpg" alt="projet2">
-                    <div class="project-nane">
-                        <h3>Mangas-Quest</h3>
-                        <button class="plus-button">Voire plus</button>
-                    </div>
-                    <div class="container">
-                        <span class="close">X</span>
-                        <h4>Description :</h4>
-                        <p class="project-description">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-                            Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
-                            consequuntur!
-                        </p>
-                    </div>
-                </div>
-    
-                <div class="one-project">
-                    <img src="img/projet3.jpg" alt="projet3">
-                    <div class="project-nane">
-                        <h3>Realty</h3>
-                        <button class="plus-button">Voire plus</button>
-                    </div>
-                    <div class="container">
-                        <span class="close">X</span>
-                        <h4>Description :</h4>
-                        <p class="project-description">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-                            Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
-                            consequuntur!
-                        </p>
-                    </div>
-                </div>
-    
-                <div class="one-project">
-                    <img src="img/projet4.jpg" alt="projet4">
-                    <div class="project-nane">
-                        <h3>Mangalaxy</h3>
-                        <button class="plus-button">Voire plus</button>
-                    </div>
-                    <div class="container">
-                        <span class="close">X</span>
-                        <h4>Description :</h4>
-                        <p class="project-description">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-                            Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
-                            consequuntur!
-                        </p>
-                    </div>
-                </div>
-    
-                <div class="one-project">
-                    <img src="img/projet5.jpg" alt="projet5">
-                    <div class="project-nane">
-                        <h3>Connectify</h3>
-                        <button class="plus-button">Voire plus</button>
-                    </div>
-                    <div class="container">
-                        <span class="close">X</span>
-                        <h4>Description :</h4>
-                        <p class="project-description">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-                            Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
-                            consequuntur!
-                        </p>
-                    </div>
-                </div>
-    
-                <div class="one-project">
-                    <img src="img/projet6.jpg" alt="projet6">
-                    <div class="project-nane">
-                        <h3>TicketMaster</h3>
-                        <button class="plus-button">Voire plus</button>
-                    </div>
-                    <div class="container">
-                        <span class="close">X</span>
-                        <h4>Description :</h4>
-                        <p class="project-description">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
-                            Corrupti consectetur molestiae autem, aliquam facilis nesciunt 
-                            consequuntur!
-                        </p>
-                    </div>
-                </div>
+                
             </div>
 
+        </section>
+
+        <div id="contact"></div>
+
+        <section class="section">
+            <h2 class="section-title">Contact</h2>
+            <hr class="hr">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h4 class="info-title">Téléphone:</h4>
+                        <div class="info-values">
+                            <div class="info-logo">
+                                <img src="/img/phone.svg" alt="téléphone">
+                            </div>
+                            <p>06.00.00.00.00</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <h4 class="info-title">Email:</h4>
+                        <div class="info-values">
+                            <div class="info-logo">
+                                <img src="/img/mail.svg" alt="mail">
+                            </div> 
+                            <p>mail@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <h4 class="info-title">Linkedin:</h4>
+                        <div class="info-values">
+                            <div class="info-logo">
+                                <img src="/img/linkedin.svg" alt="linkedin">
+                            </div>
+                            <a href="https://www.linkedin.com/" target="_blank">https://www.linkedin.com/</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <h4 class="info-title">Github:</h4>
+                        <div class="info-values">
+                            <div class="info-logo">
+                                <img src="/img/github.svg" alt="github">
+                            </div>
+                            <a href="https://github.com/" target="_blank">https://github.com/</a>
+                        </div>
+                    </div>
+                </div>
+
+                <form action="" method="" class="contact-form">
+                    <input type="text" class="contact-form-input" name="nom" placeholder="Nom" required>
+                    <input type="text" class="contact-form-input" name="email" placeholder="Email" required>
+                    <input type="text" class="contact-form-input" name="subject" placeholder="Sujet" required>
+                    <textarea name="message" placeholder="Message" class="contact-form-textarea" required></textarea>
+                    <button class="contact-submit">Envoyer</button>
+                </form>
+            </div>
         </section>
     </main>
 
