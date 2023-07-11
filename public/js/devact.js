@@ -191,3 +191,19 @@ if (update_project_button){
         })
     })
 }
+
+// Mise a jour du contact
+
+const update_contact_info = document.querySelector('#update_contact_form');
+const contact_info = document.querySelector('.contact-info');
+const update_contact_form = document.querySelector('.update_contact_form');
+const flex_change = document.querySelector('.contact-container');
+
+if (update_contact_info){
+    update_contact_info.addEventListener('click', () => {
+        contact_info.classList.toggle('hidden')
+        update_contact_form.classList.toggle('hidden')
+        update_contact_info.classList.toggle('hidden')
+        flex_change.classList.toggle('reverse')
+    })
+}
